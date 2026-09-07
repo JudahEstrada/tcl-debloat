@@ -32,6 +32,7 @@ NC='\033[0m' # No Color
 # SECTION 1: Legacy Android Editions (Android 7 - 11 Core Bloat)
 # ------------------------------------------------------------------
 legacy_packages_to_uninstall=(
+    # --- SAFE TO REMOVE (Pure Bloat / Ads / Telemetry) ---
     "com.tcl.partnercustomizer"
     "com.tcl.smartalexa"
     "com.tcl.gallery"
@@ -46,7 +47,6 @@ legacy_packages_to_uninstall=(
     "com.tcl.tvweishi"
     "com.tcl.t_solo"
     "com.tcl.dashboard"
-    "com.tcl.tv.tclhome_master"
     "com.tcl.copydatatotv"
     "com.tcl.initsetup"
     "com.android.camera2"
@@ -56,8 +56,6 @@ legacy_packages_to_uninstall=(
     "com.tcl.useragreement"
     "com.tcl.appstatecontroller"
     "com.google.android.youtube.tvmusic"
-    "com.google.android.leanbacklauncher.recommendations"
-    "com.google.android.tvrecommendations"
     "com.google.android.marvin.talkback"
     "com.android.dreams.basic"
     "com.tcl.bi"
@@ -72,7 +70,6 @@ legacy_packages_to_uninstall=(
     "com.google.android.syncadapters.calendar"
     "com.google.android.onetimeinitializer"
     "com.google.android.partnersetup"
-    "com.google.android.gsf"
     "com.android.providers.calendar"
     "com.tcl.keyhelp"
     "com.android.providers.contacts"
@@ -91,12 +88,13 @@ legacy_packages_to_uninstall=(
     "com.tcl.assistant"
     "com.tcl.waterfall.overseas"
     "com.tcl.factory.view"
-    "com.tcl.system.server"
-    "com.google.android.tv.frameworkpackagestubs"
-    "uk.co.freeview.mdsclient"
-    "uk.co.freeview.amc_catchup"
     "com.update.appnews"
     "com.tcl.bootadservice"
+    "com.graymatrix.did"
+    
+    # --- FREEVIEW / REGIONAL BLD (Safe if outside the UK) ---
+    "uk.co.freeview.mdsclient"
+    "uk.co.freeview.amc_catchup"
     "uk.co.freeview.onnow"
     "au.com.stan.and"
     "uk.co.freeview.uktv"
@@ -112,13 +110,21 @@ legacy_packages_to_uninstall=(
     "com.aos.aostv"
     "uk.co.freeview.amc_horror"
     "uk.co.freeview.ch4_vod"
-    "com.graymatrix.did"
+
+    # --- ⚠️ CRITICAL PACKAGES COMMENTED OUT (Cause crashes/black screens if removed) ---
+    # "com.tcl.tv.tclhome_master"   # Home Screen Launcher - DO NOT REMOVE or TV boots to black screen
+    # "com.google.android.leanbacklauncher.recommendations" # Android TV Home Recommendations
+    # "com.google.android.tvrecommendations" # Required for Google TV/Android TV layout pieces
+    # "com.tcl.system.server"        # Core TCL system binder - can cause widespread app failure
+    # "com.google.android.gsf"       # Google Services Framework - breaks Play Store and Google sign-ins
+    # "com.google.android.tv.frameworkpackagestubs" # Core UI framework stubs
 )
 
 # ------------------------------------------------------------------
 # SECTION 2: Android 12 Editions (New Telemetry & Ad Engines)
 # ------------------------------------------------------------------
 android12_packages_to_uninstall=(
+    # --- SAFE TO REMOVE ---
     "com.tcl.tv.plus"
     "com.tcl.hotelmenu"
     "com.tcl.UpdatePeripheral"
@@ -128,16 +134,18 @@ android12_packages_to_uninstall=(
     "com.tcl.channelplus"
     "com.tcl.airplay2"
     "com.tcl.logkit"
-    "com.tcl.systemserver"
     "com.tcl.repairguide"
     "com.tcl.interactive"
     "com.tcl.globalkeyoverlay"
     "com.tcl.smartlink.core"
     "com.tcl.tv.tclhome_passive"
-    "com.tcl.tv"
     "com.tcl.autopair"
     "com.tcl.ttvs"
     "com.tcl.exhibit"
+
+    # --- ⚠️ CRITICAL PACKAGES COMMENTED OUT ---
+    # "com.tcl.systemserver"        # Core Android 12 system daemon - will crash apps or bootloops if removed
+    # "com.tcl.tv"                  # Main TV input framework - breaks Live TV and remote key actions
 )
 
 # ------------------------------------------------------------------
@@ -170,7 +178,7 @@ connect_tv(){
 
 show_menu(){
     echo -e "${BLUE}Select an action profile:${NC}"
-    echo "1) Full Debloat (Legacy Android 7-11 + Android 12 Apps)"
+    echo "1) Full Debloat (Legacy Android 7-11 + Android 12 Apps - Safe Only)"
     echo "2) Legacy Debloat Only (Android 7-11)"
     echo "3) Android 12 Debloat Only"
     echo "4) Privacy Hardening & Ad-Blocking Only"
